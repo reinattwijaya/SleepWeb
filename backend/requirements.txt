@@ -1,0 +1,6 @@
+Django
+djangorestframework
+numpy
+scikit-learn
+joblib
+pandas

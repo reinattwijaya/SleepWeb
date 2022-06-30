@@ -15,14 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-from predict import views
-
-router = routers.DefaultRouter()
-router.register('', views.PredictView, 'predict')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('predict/', include('predict.urls')),
-    path('upload/', include(router.urls))
 ]

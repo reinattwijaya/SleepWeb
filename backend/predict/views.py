@@ -7,9 +7,18 @@ from rest_framework import viewsets
 from .serializers import PredictSerializer
 from .models import Predict
 
-class PredictView(viewsets.ModelViewSet):
-    serializer_class = PredictSerializer
-    queryset = Predict.objects.all()
+class PredictView(APIView):
+    def get(self, request, format=None):
+        predict = Predict.objects.all()
+        serializer = PredictSerializer(predict, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = PredictSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
 
 class InsomniaPrediction(APIView):
     def post(self, request):
@@ -23,7 +32,7 @@ class InsomniaPrediction(APIView):
             "BMI": [float(data["BMI"])]
         }
         
-        #convert to excel
+        #convert to panda dataframe
         df = pd.DataFrame(insomnia_data)
 
         pred = model.predict(df).reshape(-1)
@@ -42,7 +51,7 @@ class OSAPrediction(APIView):
 
         }
         
-        #convert to excel
+        #convert to panda dataframe
         df = pd.DataFrame(osa_data)
 
         pred = model.predict(df).reshape(-1)
@@ -62,7 +71,7 @@ class COMISAPrediction(APIView):
 
         }
         
-        #convert to excel
+        #convert to panda dataframe
         df = pd.DataFrame(comisa_data)
 
         pred = model.predict(df).reshape(-1)

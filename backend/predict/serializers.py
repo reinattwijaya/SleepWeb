@@ -5,3 +5,4 @@ class PredictSerializer(serializers.ModelSerializer):
     class Meta:
         model = Predict
         fields = ('id', 'name', 'sex', 'age', 'BMI', 'PSG_C6', 'ISI1a', 'ISI1b', 'ISI1c')
+        depth = 1

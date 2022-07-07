@@ -1,6 +1,8 @@
+from uuid import uuid4
 from django.db import models
 
 class Predict(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=200)
     sex = models.IntegerField(default=0)
     age = models.PositiveIntegerField(default=0)

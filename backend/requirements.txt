@@ -4,3 +4,5 @@ numpy
 scikit-learn
 joblib
 pandas
+django-cors-headers
+xgboost==0.90
